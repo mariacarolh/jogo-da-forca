@@ -10,6 +10,45 @@ namespace jogo_forca
     {
         static void Main(string[] args)
         {
+            bool sair = false;
+
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("===== JOGO DA FORCA =====");
+                Console.WriteLine("1 - Jogar");
+                Console.WriteLine("2 - vm faze ainda");
+                Console.WriteLine("3 - Sair");
+                Console.WriteLine();
+                Console.Write("Escolha uma opção: ");
+
+                string opcao = Console.ReadLine();
+
+                switch (opcao)
+                {
+                    case "1":
+                        Jogar();
+                        break;
+
+                    case "2":
+                        break;
+
+                    case "3":
+                        sair = true;
+                        break;
+
+                    default:
+                        Console.WriteLine("Opção inválida!");
+                        Console.ReadKey();
+                        break;
+                }
+
+            } while (!sair);
+        }
+
+        static void Jogar()
+        {
+            Console.Clear();
             Console.WriteLine("Bem-vindo ao jogo da forca!");
             Console.WriteLine();
             Console.WriteLine("Digite uma palavra e pressione ENTER.");
@@ -20,9 +59,10 @@ namespace jogo_forca
             string[] letrasIdentificadas = new string[palavraEscolhida.Length]; // identifica a quantidade de letras da palavra escolhida e cria um array com a mesma quantidade de posições com o valor null
             int tamanhoPalavra = palavraEscolhida.Length;
             bool jogoEmAndamento = true;
+
             do
             {
-                // Console.Clear();
+                Console.Clear();
                 Console.Write("A palavra escolhida é: ");
 
                 // percorre cada posição da palavra
@@ -56,7 +96,6 @@ namespace jogo_forca
                 for (int i = 0; i < tamanhoPalavra; i++)
                 {
                     string letraAtual = palavraEscolhida[i].ToString();
-                    Console.WriteLine(letraAtual);
 
                     if (letraAtual == letraEscolhida)
                     {
