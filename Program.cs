@@ -52,12 +52,20 @@ namespace jogo_forca {
             string palavraEscolhida = Console.ReadLine();
             string[] letrasIdentificadas = new string[palavraEscolhida.Length]; // identifica a quantidade de letras da palavra escolhida e cria um array com a mesma quantidade de posições com o valor null
             int tamanhoPalavra = palavraEscolhida.Length;
+            List<string> letrasUsadas = new List<string>();
             bool jogoEmAndamento = true;
             int numeroVidas = 6;
 
             do {
                 Console.Clear();
                 Console.WriteLine("Vidas restantes: " + numeroVidas);
+                Console.Write("Letras usadas: ");
+
+                foreach (string letra in letrasUsadas)
+                {
+                    Console.Write(letra + " ");
+                }
+
                 Console.WriteLine();
 
                 Console.Write("A palavra escolhida é: ");
@@ -81,8 +89,10 @@ namespace jogo_forca {
                 Console.WriteLine();
                 Console.WriteLine("Escolha uma letra");
                 Console.WriteLine();
+
                 Console.Write("A letra escolhida é: ");
                 string letraEscolhida = Console.ReadLine();
+                letrasUsadas.Add(letraEscolhida);
 
                 bool letraEncontrada = false;
                 Console.WriteLine(letraEscolhida);
