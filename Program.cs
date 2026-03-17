@@ -58,6 +58,8 @@ namespace jogo_forca {
 
             do {
                 Console.Clear();
+                DesenharForca(numeroVidas);
+                Console.WriteLine();
                 Console.WriteLine("Vidas restantes: " + numeroVidas);
                 Console.Write("Letras usadas: ");
 
@@ -67,7 +69,6 @@ namespace jogo_forca {
                 }
 
                 Console.WriteLine();
-
                 Console.Write("A palavra escolhida é: ");
 
                 // percorre cada posição da palavra
@@ -78,8 +79,7 @@ namespace jogo_forca {
                     if (letraAtual == null) {
                         // exibe _ quando não encontrar a letra
                         Console.Write("_ ");
-                    }
-                    else {
+                    } else {
                         // exibe a letra se ela tiver sido encontrada
                         Console.Write(letraAtual);
                     }
@@ -121,8 +121,7 @@ namespace jogo_forca {
                         Console.WriteLine("Parabéns, você ganhou! A palavra secreta era " + palavraEscolhida + ".");
                         jogoEmAndamento = false;
                     }
-                }
-                else {
+                } else {
                     numeroVidas--;
                     Console.WriteLine("A letra " + letraEscolhida + " não pertence a PALAVRA SECRETA!!!");
                     Console.WriteLine();
@@ -132,6 +131,8 @@ namespace jogo_forca {
                     Console.ReadKey();
 
                     if (numeroVidas == 0) {
+                        Console.Clear();
+                        DesenharForca(numeroVidas);
                         Console.WriteLine();
                         Console.WriteLine("Você perdeu! A palavra era: " + palavraEscolhida);
                         jogoEmAndamento = false;
@@ -142,6 +143,45 @@ namespace jogo_forca {
             Console.WriteLine();
             Console.WriteLine("Pressione qualquer tecla");
             Console.ReadKey();
+        }
+
+        static void DesenharForca(int vidas) {
+            Console.WriteLine("  _______");
+            Console.WriteLine(" |/      |");
+
+            if (vidas <= 5) {
+                Console.WriteLine(" |      (_)");
+            } else {
+                Console.WriteLine(" |");
+            }
+
+            if (vidas == 4) {
+                Console.WriteLine(" |       |");
+            } else if (vidas == 3) {
+                Console.WriteLine(" |      \\|");
+            } else if (vidas <= 2) {
+                Console.WriteLine(" |      \\|/");
+            } else {
+                Console.WriteLine(" |");
+            }
+
+            if (vidas <= 2) {
+                Console.WriteLine(" |       |");
+            } else {
+                Console.WriteLine(" |");
+            }
+
+            if (vidas == 1) {
+                Console.WriteLine(" |      / ");
+            } else if (vidas == 0) {
+                Console.WriteLine(" |      / \\");
+            }  else  {
+                Console.WriteLine(" |");
+            }
+
+            Console.WriteLine(" |");
+            Console.WriteLine("_|___");
+            Console.WriteLine();
         }
     }
 }
