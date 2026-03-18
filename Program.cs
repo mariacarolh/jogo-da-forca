@@ -92,6 +92,14 @@ namespace jogo_forca {
 
                 Console.Write("A letra escolhida é: ");
                 string letraEscolhida = Console.ReadLine();
+
+                if (letrasUsadas.Contains(letraEscolhida)) {
+                    Console.WriteLine($"A letra {letraEscolhida} já foi usada!");
+                    Console.WriteLine("Pressione qualquer tecla para continuar");
+                    Console.ReadKey();
+                    continue;
+                }
+
                 letrasUsadas.Add(letraEscolhida);
 
                 bool letraEncontrada = false;
