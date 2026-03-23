@@ -90,8 +90,19 @@ namespace jogo_forca {
                 Console.WriteLine("Escolha uma letra");
                 Console.WriteLine();
 
-                Console.Write("A letra escolhida é: ");
-                string letraEscolhida = Console.ReadLine().ToUpper();
+                string letraEscolhida;
+
+                while (true) {
+                    Console.Write("A letra escolhida é: ");
+                    string entrada = Console.ReadLine().ToUpper();
+
+                    if (entrada.Length == 1 && Char.IsLetter(entrada[0])) {
+                        letraEscolhida = entrada;
+                        break;
+                    }
+
+                    Console.WriteLine("Digite apenas UMA letra válida!");
+                }
 
                 if (letrasUsadas.Contains(letraEscolhida)) {
                     Console.WriteLine($"A letra {letraEscolhida} já foi usada!");
