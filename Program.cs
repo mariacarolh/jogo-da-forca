@@ -6,14 +6,29 @@ using System.Threading.Tasks;
 
 namespace jogo_forca {
     internal class Program {
+
+        static Random random = new Random();
+
+        static List<string> bancoPalavras = new List<string>()
+        {
+            "COMPUTADOR",
+            "PROGRAMADOR",
+            "CAIXA",
+            "RECEBIMENTO",
+            "CONCLUIR",
+            "DESENVOLVER",
+            "ADICIONAR",
+        };
+
+
         static void Main(string[] args) {
             bool sair = false;
 
             do {
                 Console.Clear();
                 Console.WriteLine("===== JOGO DA FORCA =====");
-                Console.WriteLine("1 - Jogar");
-                Console.WriteLine("2 - vm faze ainda");
+                Console.WriteLine("1 - MultiPlayer");
+                Console.WriteLine("2 - SinglePlayer");
                 Console.WriteLine("3 - Sair");
                 Console.WriteLine();
                 Console.Write("Escolha uma opção: ");
@@ -22,10 +37,11 @@ namespace jogo_forca {
 
                 switch (opcao) {
                     case "1":
-                        Jogar();
+                        MultiPlayer();
                         break;
 
                     case "2":
+                        SinglePlayer();
                         break;
 
                     case "3":
@@ -41,17 +57,29 @@ namespace jogo_forca {
             } while (!sair);
         }
 
-        static void Jogar() {
+        static void MultiPlayer() {
             Console.Clear();
             Console.WriteLine("Bem-vindo ao jogo da forca!");
             Console.WriteLine();
             Console.WriteLine("Digite uma palavra e pressione ENTER.");
             Console.WriteLine();
             Console.Write("Palavra: ");
+            string Palavra = Console.ReadLine().ToUpper();
+            //Console.Clear();
+            Jogar(Palavra, 2);
+        }
 
-            string palavraEscolhida = Console.ReadLine().ToUpper();
-            string[] letrasIdentificadas = new string[palavraEscolhida.Length]; // identifica a quantidade de letras da palavra escolhida e cria um array com a mesma quantidade de posições com o valor null
-            int tamanhoPalavra = palavraEscolhida.Length;
+        static void SinglePlayer() {
+            Console.Clear();
+            string Palavra = bancoPalavras[random.Next(bancoPalavras.Count)];
+            Jogar(Palavra, 1);
+        }
+
+
+        static void Jogar(string Palavra, int modo) {
+
+            string[] letrasIdentificadas = new string[Palavra.Length]; // identifica a quantidade de letras da palavra escolhida e cria um array com a mesma quantidade de posições com o valor null
+            int tamanhoPalavra = Palavra.Length;
             List<string> letrasUsadas = new List<string>();
             bool jogoEmAndamento = true;
             int numeroVidas = 6;
@@ -62,7 +90,6 @@ namespace jogo_forca {
                 Console.WriteLine();
                 Console.WriteLine("Vidas restantes: " + numeroVidas);
                 Console.Write("Letras usadas: ");
-                Console.WriteLine();
 
                 foreach (string letra in letrasUsadas)
                 {
@@ -88,6 +115,8 @@ namespace jogo_forca {
 
                 Console.WriteLine();
                 Console.WriteLine();
+                Console.WriteLine("Escolha uma letra");
+                Console.WriteLine();
 
                 string letraEscolhida;
 
@@ -102,7 +131,6 @@ namespace jogo_forca {
 
                     Console.WriteLine("Digite apenas UMA letra válida!");
                 }
-
                 if (letrasUsadas.Contains(letraEscolhida)) {
                     Console.WriteLine($"A letra {letraEscolhida} já foi usada!");
                     Console.WriteLine("Pressione qualquer tecla para continuar");
@@ -113,9 +141,10 @@ namespace jogo_forca {
                 letrasUsadas.Add(letraEscolhida);
 
                 bool letraEncontrada = false;
+                Console.WriteLine(letraEscolhida);
 
                 for (int i = 0; i < tamanhoPalavra; i++) {
-                    string letraAtual = palavraEscolhida[i].ToString();
+                    string letraAtual = Palavra[i].ToString();
 
                     if (letraAtual == letraEscolhida) {
                         letrasIdentificadas[i] = letraAtual + " ";
@@ -135,7 +164,7 @@ namespace jogo_forca {
 
                     if (palavraDescoberta == true) {
                         Console.WriteLine();
-                        Console.WriteLine("Parabéns, você ganhou! A palavra secreta era " + palavraEscolhida + ".");
+                        Console.WriteLine("Parabéns, você ganhou! A palavra secreta era " + Palavra + ".");
                         jogoEmAndamento = false;
                     }
                 } else {
@@ -151,7 +180,7 @@ namespace jogo_forca {
                         Console.Clear();
                         DesenharForca(numeroVidas);
                         Console.WriteLine();
-                        Console.WriteLine("Você perdeu! A palavra era: " + palavraEscolhida);
+                        Console.WriteLine("Você perdeu! A palavra era: " + Palavra);
                         jogoEmAndamento = false;
                     }
                 }
@@ -192,7 +221,7 @@ namespace jogo_forca {
                 Console.WriteLine(" |      / ");
             } else if (vidas == 0) {
                 Console.WriteLine(" |      / \\");
-            }  else  {
+            } else {
                 Console.WriteLine(" |");
             }
 
