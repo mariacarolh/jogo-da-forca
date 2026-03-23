@@ -62,6 +62,7 @@ namespace jogo_forca {
                 Console.WriteLine();
                 Console.WriteLine("Vidas restantes: " + numeroVidas);
                 Console.Write("Letras usadas: ");
+                Console.WriteLine();
 
                 foreach (string letra in letrasUsadas)
                 {
@@ -86,8 +87,6 @@ namespace jogo_forca {
                 }
 
                 Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Escolha uma letra");
                 Console.WriteLine();
 
                 string letraEscolhida;
@@ -114,7 +113,6 @@ namespace jogo_forca {
                 letrasUsadas.Add(letraEscolhida);
 
                 bool letraEncontrada = false;
-                Console.WriteLine(letraEscolhida);
 
                 for (int i = 0; i < tamanhoPalavra; i++) {
                     string letraAtual = palavraEscolhida[i].ToString();
