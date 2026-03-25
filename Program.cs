@@ -23,6 +23,7 @@ namespace jogo_forca {
 
         static void Main(string[] args) {
             bool sair = false;
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             do {
                 Console.Clear();
@@ -63,7 +64,7 @@ namespace jogo_forca {
             Console.WriteLine();
             Console.WriteLine("Digite uma palavra e pressione ENTER.");
             Console.WriteLine();
-            Console.Write("Palavra: ");
+            Console.Write("PALAVRA: ");
             string Palavra = Console.ReadLine().ToUpper();
             //Console.Clear();
             Jogar(Palavra, 2);
@@ -86,18 +87,10 @@ namespace jogo_forca {
 
             do {
                 Console.Clear();
-                DesenharForca(numeroVidas);
-                Console.WriteLine();
-                Console.WriteLine("Vidas restantes: " + numeroVidas);
-                Console.Write("Letras usadas: ");
-
-                foreach (string letra in letrasUsadas)
-                {
-                    Console.Write(letra.ToUpper() + " ");
-                }
+                DesenharForca(numeroVidas, letrasUsadas);
 
                 Console.WriteLine();
-                Console.Write("A palavra escolhida é: ");
+                Console.Write("PALAVRA: ");
 
                 // percorre cada posição da palavra
                 for (int i = 0; i < letrasIdentificadas.Length; i++) {
@@ -114,8 +107,6 @@ namespace jogo_forca {
                 }
 
                 Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Escolha uma letra");
                 Console.WriteLine();
 
                 string letraEscolhida;
@@ -141,7 +132,6 @@ namespace jogo_forca {
                 letrasUsadas.Add(letraEscolhida);
 
                 bool letraEncontrada = false;
-                Console.WriteLine(letraEscolhida);
 
                 for (int i = 0; i < tamanhoPalavra; i++) {
                     string letraAtual = Palavra[i].ToString();
@@ -178,7 +168,7 @@ namespace jogo_forca {
 
                     if (numeroVidas == 0) {
                         Console.Clear();
-                        DesenharForca(numeroVidas);
+                        DesenharForca(numeroVidas, letrasUsadas);
                         Console.WriteLine();
                         Console.WriteLine("Você perdeu! A palavra era: " + Palavra);
                         jogoEmAndamento = false;
@@ -191,9 +181,13 @@ namespace jogo_forca {
             Console.ReadKey();
         }
 
-        static void DesenharForca(int vidas) {
-            Console.WriteLine("  _______");
-            Console.WriteLine(" |/      |");
+        static void DesenharForca(int vidas, List<string> letrasUsadas) {
+
+            string coracoes = GerarCoracoes(vidas);
+            string letras = GerarHistoricoLetras(letrasUsadas);
+
+            Console.WriteLine("  _______      Vidas: " + coracoes);
+            Console.WriteLine(" |/      |     Letras usadas: " + letras);
 
             if (vidas <= 5) {
                 Console.WriteLine(" |      (_)");
@@ -229,5 +223,30 @@ namespace jogo_forca {
             Console.WriteLine("_|___");
             Console.WriteLine();
         }
+
+        static string GerarCoracoes(int vidas)
+        {
+            string coracoes = "";
+
+            for (int i = 0; i < vidas; i++)
+            {
+                coracoes += "♥ ";
+            }
+
+            return coracoes;
+        }
+
+        static string GerarHistoricoLetras(List<string> letrasUsadas)
+        {
+            string letras = "";
+
+            foreach (string letra in letrasUsadas)
+            {
+                letras += letra + " ";
+            }
+
+            return letras;
+        }
     }
+
 }
