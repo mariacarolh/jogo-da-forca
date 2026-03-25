@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace jogo_forca {
     internal class Program {
@@ -27,11 +25,15 @@ namespace jogo_forca {
 
             do {
                 Console.Clear();
-                Console.WriteLine("===== JOGO DA FORCA =====");
-                Console.WriteLine("1 - MultiPlayer");
-                Console.WriteLine("2 - SinglePlayer");
-                Console.WriteLine("3 - Sair");
-                Console.WriteLine();
+
+                Titulo("JOGO DA FORCA");
+                Linha();
+
+                Console.WriteLine(" 1) Multiplayer");
+                Console.WriteLine(" 2) Single Player");
+                Console.WriteLine(" 3) Sair");
+
+                Linha();
                 Console.Write("Escolha uma opção: ");
 
                 string opcao = Console.ReadLine();
@@ -60,13 +62,18 @@ namespace jogo_forca {
 
         static void MultiPlayer() {
             Console.Clear();
-            Console.WriteLine("Bem-vindo ao jogo da forca!");
-            Console.WriteLine();
+
+            Titulo("Modo Multiplayer");
+            Linha();
+
             Console.WriteLine("Digite uma palavra e pressione ENTER.");
             Console.WriteLine();
+
             Console.Write("PALAVRA: ");
             string Palavra = Console.ReadLine().ToUpper();
-            //Console.Clear();
+
+            Console.Clear();
+
             Jogar(Palavra, 2);
         }
 
@@ -81,15 +88,19 @@ namespace jogo_forca {
 
             string[] letrasIdentificadas = new string[Palavra.Length]; // identifica a quantidade de letras da palavra escolhida e cria um array com a mesma quantidade de posições com o valor null
             int tamanhoPalavra = Palavra.Length;
+
             List<string> letrasUsadas = new List<string>();
+
             bool jogoEmAndamento = true;
             int numeroVidas = 6;
 
             do {
                 Console.Clear();
+
                 DesenharForca(numeroVidas, letrasUsadas);
 
-                Console.WriteLine();
+                Linha();
+
                 Console.Write("PALAVRA: ");
 
                 // percorre cada posição da palavra
@@ -98,11 +109,11 @@ namespace jogo_forca {
                     string letraAtual = letrasIdentificadas[i];
 
                     if (letraAtual == null) {
-                        // exibe _ quando não encontrar a letra
                         Console.Write("_ ");
                     } else {
-                        // exibe a letra se ela tiver sido encontrada
-                        Console.Write(letraAtual);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write(letraAtual + " ");
+                        Console.ResetColor();
                     }
                 }
 
@@ -112,7 +123,7 @@ namespace jogo_forca {
                 string letraEscolhida;
 
                 while (true) {
-                    Console.Write("A letra escolhida é: ");
+                    Console.Write("Digite uma letra: ");
                     string entrada = Console.ReadLine().ToUpper();
 
                     if (entrada.Length == 1 && Char.IsLetter(entrada[0])) {
@@ -122,9 +133,9 @@ namespace jogo_forca {
 
                     Console.WriteLine("Digite apenas UMA letra válida!");
                 }
+
                 if (letrasUsadas.Contains(letraEscolhida)) {
                     Console.WriteLine($"A letra {letraEscolhida} já foi usada!");
-                    Console.WriteLine("Pressione qualquer tecla para continuar");
                     Console.ReadKey();
                     continue;
                 }
@@ -137,57 +148,85 @@ namespace jogo_forca {
                     string letraAtual = Palavra[i].ToString();
 
                     if (letraAtual == letraEscolhida) {
-                        letrasIdentificadas[i] = letraAtual + " ";
+                        letrasIdentificadas[i] = letraAtual;
                         letraEncontrada = true;
                     }
                 }
 
-                if (letraEncontrada == true) {
+                if (letraEncontrada) {
                     bool palavraDescoberta = true;
-                    for (int i = 0; i < letrasIdentificadas.Length; i++) {
-                        string letraAtual = letrasIdentificadas[i];
 
-                        if (letraAtual == null) {
+                    for (int i = 0; i < letrasIdentificadas.Length; i++) {
+                        if (letrasIdentificadas[i] == null)  {
                             palavraDescoberta = false;
                         }
                     }
 
-                    if (palavraDescoberta == true) {
-                        Console.WriteLine();
-                        Console.WriteLine("Parabéns, você ganhou! A palavra secreta era " + Palavra + ".");
+                    if (palavraDescoberta) {
+                        Linha();
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("VOCÊ GANHOU! :D");
+                        Console.ResetColor();
+
+                        Console.Write("A palavra secreta era: ");
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine(Palavra);
+                        Console.ResetColor();
+
                         jogoEmAndamento = false;
                     }
                 } else {
                     numeroVidas--;
-                    Console.WriteLine("A letra " + letraEscolhida + " não pertence a PALAVRA SECRETA!!!");
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("A letra ");
+
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write(letraEscolhida);
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" não está na palavra!");
+                    Console.ResetColor();
+
                     Console.WriteLine();
                     Console.WriteLine("Vidas restantes: " + numeroVidas);
-                    Console.WriteLine();
-                    Console.WriteLine("Pressione qualquer tecla para continuar");
+
                     Console.ReadKey();
 
                     if (numeroVidas == 0) {
                         Console.Clear();
                         DesenharForca(numeroVidas, letrasUsadas);
+
+                        Linha();
+
+                        PiscarMensagem("GAME OVER", ConsoleColor.Red, 4);
+
                         Console.WriteLine();
-                        Console.WriteLine("Você perdeu! A palavra era: " + Palavra);
+                        Console.Write("A palavra era: ");
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine(Palavra);
+                        Console.ResetColor();
+
                         jogoEmAndamento = false;
                     }
                 }
+
             } while (jogoEmAndamento);
 
             Console.WriteLine();
-            Console.WriteLine("Pressione qualquer tecla");
+            Console.WriteLine("Pressione qualquer tecla para voltar ao menu...");
             Console.ReadKey();
         }
 
         static void DesenharForca(int vidas, List<string> letrasUsadas) {
-
             string coracoes = GerarCoracoes(vidas);
-            string letras = GerarHistoricoLetras(letrasUsadas);
 
             Console.WriteLine("  _______      Vidas: " + coracoes);
-            Console.WriteLine(" |/      |     Letras usadas: " + letras);
+            Console.Write(" |/      |     Letras usadas: ");
+            GerarHistoricoLetras(letrasUsadas);
 
             if (vidas <= 5) {
                 Console.WriteLine(" |      (_)");
@@ -221,32 +260,64 @@ namespace jogo_forca {
 
             Console.WriteLine(" |");
             Console.WriteLine("_|___");
-            Console.WriteLine();
         }
 
-        static string GerarCoracoes(int vidas)
-        {
+        static string GerarCoracoes(int vidas) {
             string coracoes = "";
 
-            for (int i = 0; i < vidas; i++)
-            {
+            for (int i = 0; i < vidas; i++) {
                 coracoes += "♥ ";
             }
 
             return coracoes;
         }
 
-        static string GerarHistoricoLetras(List<string> letrasUsadas)
-        {
-            string letras = "";
+        static void GerarHistoricoLetras(List<string> letrasUsadas) {
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
-            foreach (string letra in letrasUsadas)
-            {
-                letras += letra + " ";
+            foreach (string letra in letrasUsadas) {
+                Console.Write(letra + " ");
             }
 
-            return letras;
+            Console.ResetColor();
+            Console.WriteLine();
+        }
+
+        static void PiscarMensagem(string mensagem, ConsoleColor cor, int piscadas) {
+            int linha = Console.CursorTop;
+
+            for (int i = 0; i < piscadas; i++) {
+                Console.SetCursorPosition(0, linha);
+
+                Console.ForegroundColor = cor;
+                Console.Write(mensagem);
+
+                Thread.Sleep(250);
+
+                Console.SetCursorPosition(0, linha);
+                Console.Write(new string(' ', mensagem.Length));
+
+                Thread.Sleep(150);
+            }
+
+            Console.SetCursorPosition(0, linha);
+
+            Console.ForegroundColor = cor;
+            Console.WriteLine(mensagem);
+            Console.ResetColor();
+        }
+
+        static void Titulo(string texto)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(texto);
+            Console.ResetColor();
+        }
+
+        static void Linha() {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine(new string('─', 40));
+            Console.ResetColor();
         }
     }
-
 }
