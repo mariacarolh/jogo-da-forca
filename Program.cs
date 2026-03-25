@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.IO;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
@@ -7,7 +8,6 @@ namespace jogo_forca {
     internal class Program {
 
         static Random random = new Random();
-        static List<string> bancoPalavras = CarregarPalavras("palavras.txt");
 
         static void Main(string[] args) {
             bool sair = false;
@@ -69,9 +69,65 @@ namespace jogo_forca {
 
         static void SinglePlayer() {
             Console.Clear();
-            string Palavra = bancoPalavras[random.Next(bancoPalavras.Count)];
+
+            Titulo("Modo Single Player");
+            Linha();
+
+            Console.WriteLine("1) Frutas");
+            Console.WriteLine("2) Objetos");
+            Console.WriteLine("3) Cores");
+            Console.WriteLine("4) Animais");
+            Console.WriteLine("5) Paises");
+            Console.WriteLine("0) Voltar");
+
+            Linha();
+            Console.Write("Escolha uma categoria: ");
+
+            string opcao = Console.ReadLine();
+
+            List<string> palavras = new List<string>();
+
+            switch (opcao) { 
+            
+                case "1":
+                    palavras = CarregarPalavras("frutas.txt");
+                    break;
+
+                case "2":
+                    palavras = CarregarPalavras("objetos.txt");
+                    break;
+
+                case "3":
+                    palavras = CarregarPalavras("cores.txt");
+                    break;
+
+                case "4":
+                    palavras = CarregarPalavras("animais.txt");
+                    break;
+
+                case "5":
+                    palavras = CarregarPalavras("paises.txt");
+                    break;
+
+                case "0":
+                    return;
+
+                default:
+                    Console.WriteLine("Opção inválida!");
+                    Console.ReadKey();
+                    return;
+            }
+
+            if (palavras.Count == 0) { 
+            
+                Console.WriteLine("Arquivo vazio ou não encontrado!");
+                Console.ReadKey();
+                return;
+            }
+
+            string Palavra = palavras[random.Next(palavras.Count)];
             Jogar(Palavra, 1);
-        }
+    }
 
         static void Jogar(string Palavra, int modo) {
 
@@ -308,8 +364,7 @@ namespace jogo_forca {
             Console.ResetColor();
         }
 
-        static List<string> CarregarPalavras(string arquivo)
-        {
+        static List<string> CarregarPalavras(string arquivo) {
             if (!File.Exists(arquivo))
                 return new List<string>();
 
