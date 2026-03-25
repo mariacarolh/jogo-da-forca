@@ -1,23 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
 
 namespace jogo_forca {
     internal class Program {
 
         static Random random = new Random();
-
-        static List<string> bancoPalavras = new List<string>()
-        {
-            "COMPUTADOR",
-            "PROGRAMADOR",
-            "CAIXA",
-            "RECEBIMENTO",
-            "CONCLUIR",
-            "DESENVOLVER",
-            "ADICIONAR",
-        };
-
+        static List<string> bancoPalavras = CarregarPalavras("palavras.txt");
 
         static void Main(string[] args) {
             bool sair = false;
@@ -82,7 +72,6 @@ namespace jogo_forca {
             string Palavra = bancoPalavras[random.Next(bancoPalavras.Count)];
             Jogar(Palavra, 1);
         }
-
 
         static void Jogar(string Palavra, int modo) {
 
@@ -307,8 +296,7 @@ namespace jogo_forca {
             Console.ResetColor();
         }
 
-        static void Titulo(string texto)
-        {
+        static void Titulo(string texto) {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(texto);
             Console.ResetColor();
@@ -318,6 +306,17 @@ namespace jogo_forca {
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine(new string('─', 40));
             Console.ResetColor();
+        }
+
+        static List<string> CarregarPalavras(string arquivo)
+        {
+            if (!File.Exists(arquivo))
+                return new List<string>();
+
+            return File.ReadAllLines(arquivo)
+                       .Where(l => !string.IsNullOrWhiteSpace(l))
+                       .Select(l => l.Trim().ToUpper())
+                       .ToList();
         }
     }
 }
