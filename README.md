@@ -57,7 +57,7 @@ git clone https://github.com/seu-usuario/jogo-da-forca.git
 
 ---
 
-## 🛠 Tecnologias utilizadas
+## Tecnologias utilizadas
 
 * **C#**
 * **.NET Framework**
