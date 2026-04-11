@@ -127,5 +127,35 @@ namespace jogo_forca {
 
             Console.WriteLine();
         }
+
+        public static string LerSenha() {
+            string entrada = "";
+
+            while (true) {
+                // Lê a tecla sem exibir nada na tela com intercepttrue
+                ConsoleKeyInfo tecla = Console.ReadKey(intercept: true);
+
+                // Enter encerra a leitura
+                if (tecla.Key == ConsoleKey.Enter)
+                    break;
+
+                // Backspace remove o último caractere da string e apaga o * da tela
+                if (tecla.Key == ConsoleKey.Backspace) {
+                    if (entrada.Length > 0) {
+                        entrada = entrada.Substring(0, entrada.Length - 1);
+                        Console.Write("\b \b"); // volta um, escreve espaço, volta de novo
+                    }
+                    continue;
+                }
+
+                if (Char.IsLetter(tecla.KeyChar)) {
+                    entrada += tecla.KeyChar;
+                    Console.Write("*"); // exibe * no lugar da letra digitada
+                }
+            }
+
+            Console.WriteLine();
+            return entrada;
+        }
     }
 }

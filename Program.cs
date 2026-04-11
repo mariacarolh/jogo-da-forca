@@ -74,7 +74,7 @@ namespace jogo_forca {
                 nomeJogador = "ANÔNIMO";
 
             Console.Write("PALAVRA: ");
-            string palavra = Console.ReadLine().ToUpper();
+            string palavra = UI.LerSenha().ToUpper();
 
             Console.Clear();
 
