@@ -43,28 +43,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Service\Arquivo.cs" />
+    <Compile Include="Core\Jogo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-		<Content Include="cores.txt">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-	    <Content Include="animais.txt">
-		    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	    </Content>
-	    <Content Include="objetos.txt">
-		    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	    </Content>
-	    <Content Include="paises.txt">
-		    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	    </Content>
-	    <Content Include="frutas.txt">
-		    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	    </Content>
+    <Content Include="Data\cores.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\animais.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\objetos.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\paises.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\frutas.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
