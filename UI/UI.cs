@@ -112,7 +112,7 @@ namespace jogo_forca {
 
         public static void Linha() {
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine(new string('─', 40));
+            Console.WriteLine(new string('─', 55));
             Console.ResetColor();
         }
     }

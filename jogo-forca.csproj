@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Service\Ranking.cs" />
     <Compile Include="Service\Arquivo.cs" />
     <Compile Include="Core\Jogo.cs" />
     <Compile Include="Program.cs" />
@@ -68,6 +69,7 @@
     <Content Include="Data\frutas.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\ranking.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

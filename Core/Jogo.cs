@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace jogo_forca {
     public class Jogo {
-        public void Jogar(string Palavra) {
+
+        // Executa uma partida com a palavra fornecida e retorna true se o jogador venceu
+        public bool Jogar(string Palavra) {
             // Cria um array do tamanho da palavra, cada posição começa como null (letra não descoberta)
             string[] letrasIdentificadas = new string[Palavra.Length];
             int tamanhoPalavra = Palavra.Length;
@@ -12,6 +14,9 @@ namespace jogo_forca {
 
             bool jogoEmAndamento = true;
             int numeroVidas = 6;
+
+            // Controla se o jogador venceu para retornar ao final
+            bool venceu = false;
 
             do {
                 Console.Clear();
@@ -74,8 +79,7 @@ namespace jogo_forca {
                     }
                 }
 
-
-                if (letraEncontrada){
+                if (letraEncontrada) {
                     // Verifica se ainda existe alguma posição nula (letra não descoberta)
                     bool palavraDescoberta = true;
 
@@ -98,6 +102,7 @@ namespace jogo_forca {
                         Console.ResetColor();
 
                         jogoEmAndamento = false;
+                        venceu = true;
                     }
                 } else {
                     numeroVidas--;
@@ -142,6 +147,9 @@ namespace jogo_forca {
             Console.WriteLine();
             Console.WriteLine("Pressione qualquer tecla para voltar ao menu...");
             Console.ReadKey();
+
+            // Retorna se o jogador venceu para que o Program possa registrar no ranking
+            return venceu;
         }
     }
 }

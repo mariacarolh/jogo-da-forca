@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace jogo_forca { 
+namespace jogo_forca {
     internal class Program {
 
         static Random random = new Random();
@@ -12,7 +12,7 @@ namespace jogo_forca {
             // Formatação para caracteres especiais
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            do { 
+            do {
                 Console.Clear();
 
                 UI.Titulo("JOGO DA FORCA");
@@ -20,14 +20,15 @@ namespace jogo_forca {
 
                 Console.WriteLine(" 1) Multiplayer");
                 Console.WriteLine(" 2) Single Player");
-                Console.WriteLine(" 3) Sair");
+                Console.WriteLine(" 3) Ranking");
+                Console.WriteLine(" 4) Sair");
 
                 UI.Linha();
                 Console.Write("Escolha uma opção: ");
 
                 string opcao = Console.ReadLine();
 
-                switch (opcao) { 
+                switch (opcao) {
                     case "1":
                         MultiPlayer();
                         break;
@@ -37,6 +38,10 @@ namespace jogo_forca {
                         break;
 
                     case "3":
+                        Ranking.ExibirRanking();
+                        break;
+
+                    case "4":
                         sair = true;
                         break;
 
@@ -55,15 +60,36 @@ namespace jogo_forca {
             UI.Titulo("Modo Multiplayer");
             UI.Linha();
 
+            // Pede o nome do jogador para registrar no ranking
+            Console.Write("Nome do jogador: ");
+            string nomeJogador = Console.ReadLine().Trim().ToUpper();
+
+            if (string.IsNullOrWhiteSpace(nomeJogador))
+                nomeJogador = "ANÔNIMO";
+
             Console.Write("PALAVRA: ");
             string palavra = Console.ReadLine().ToUpper();
 
             Console.Clear();
 
-            new Jogo().Jogar(palavra);
+            // Registra o resultado da partida no ranking após o jogo terminar
+            bool venceu = new Jogo().Jogar(palavra);
+            Ranking.RegistrarResultado(nomeJogador, venceu);
         }
 
         static void SinglePlayer() {
+            Console.Clear();
+
+            UI.Titulo("Modo Single Player");
+            UI.Linha();
+
+            // Pede o nome do jogador para registrar no ranking
+            Console.Write("Nome do jogador: ");
+            string nomeJogador = Console.ReadLine().Trim().ToUpper();
+
+            if (string.IsNullOrWhiteSpace(nomeJogador))
+                nomeJogador = "ANÔNIMO";
+
             Console.Clear();
 
             UI.Titulo("Modo Single Player");
@@ -120,9 +146,12 @@ namespace jogo_forca {
                 return;
             }
 
-            // Sorteia uma palavra aleatória da lista com o RAMDOM e inicia o jogo
+            // Sorteia uma palavra aleatória da lista com o RANDOM e inicia o jogo
             string palavra = palavras[random.Next(palavras.Count)];
-            new Jogo().Jogar(palavra);
+
+            // Registra o resultado da partida no ranking após o jogo terminar
+            bool venceu = new Jogo().Jogar(palavra);
+            Ranking.RegistrarResultado(nomeJogador, venceu);
         }
     }
 }
