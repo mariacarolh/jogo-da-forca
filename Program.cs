@@ -18,10 +18,11 @@ namespace jogo_forca {
                 UI.Titulo("JOGO DA FORCA");
                 UI.Linha();
 
-                Console.WriteLine(" 1) Multiplayer");
-                Console.WriteLine(" 2) Single Player");
-                Console.WriteLine(" 3) Ranking");
-                Console.WriteLine(" 4) Sair");
+                Console.WriteLine(" [1] Multiplayer");
+                Console.WriteLine(" [2] Single Player");
+                Console.WriteLine(" [3] Ranking");
+                Console.WriteLine(" [4] Créditos");
+                Console.WriteLine(" [5] Sair");
 
                 UI.Linha();
                 Console.Write("Escolha uma opção: ");
@@ -42,6 +43,10 @@ namespace jogo_forca {
                         break;
 
                     case "4":
+                        ExibirAlunos();
+                        break;
+  
+                    case "5":
                         sair = true;
                         break;
 
@@ -152,6 +157,21 @@ namespace jogo_forca {
             // Registra o resultado da partida no ranking após o jogo terminar
             bool venceu = new Jogo().Jogar(palavra);
             Ranking.RegistrarResultado(nomeJogador, venceu);
+        }
+
+        static void ExibirAlunos() {
+            Console.Clear();
+
+            UI.Titulo("Integrantes do grupo:");
+            UI.Linha();
+
+            Console.WriteLine("Cesar Augusto Silva - 2026109330");
+            Console.WriteLine("Maria Carolina Pereira - 2022202695");
+            Console.WriteLine("Sara Hadassa Bruzamolin Carvalho - 2022101542");
+
+            UI.Linha();
+            Console.WriteLine("Pressione qualquer tecla para voltar...");
+            Console.ReadKey();
         }
     }
 }
