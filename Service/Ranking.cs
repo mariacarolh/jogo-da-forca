@@ -42,11 +42,9 @@ namespace jogo_forca {
                 Console.WriteLine("Nenhuma partida registrada ainda!");
             } else {
                 // Ordena por vitórias decrescente; em caso de empate, menos derrotas primeiro
-                var ordenado = ranking
-                    .OrderByDescending(r => r.Value.Vitorias)
-                    .ThenBy(r => r.Value.Derrotas)
-                    .ToList();
+                var ordenado = ranking.OrderByDescending(r => r.Value.Vitorias).ThenBy(r => r.Value.Derrotas).ToList();
 
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($" {"#",-4} {"JOGADOR",-24} {"VITÓRIAS",-13} {"DERROTAS",-13}");
                 UI.Linha();
 
@@ -67,6 +65,7 @@ namespace jogo_forca {
 
             UI.Linha();
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine("Pressione qualquer tecla para voltar ao menu...");
             Console.ReadKey();
         }

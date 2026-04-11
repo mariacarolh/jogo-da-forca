@@ -17,14 +17,15 @@ namespace jogo_forca {
 
                 UI.Titulo("JOGO DA FORCA");
                 UI.Linha();
-
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(" [1] Multiplayer");
                 Console.WriteLine(" [2] Single Player");
                 Console.WriteLine(" [3] Ranking");
-                Console.WriteLine(" [4] Créditos");
+                Console.WriteLine(" [4] Detalhes");
                 Console.WriteLine(" [5] Sair");
 
                 UI.Linha();
+                Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.Write("Escolha uma opção: ");
 
                 string opcao = Console.ReadLine();
@@ -43,7 +44,7 @@ namespace jogo_forca {
                         break;
 
                     case "4":
-                        ExibirAlunos();
+                        ExibirDetalhes();
                         break;
   
                     case "5":
@@ -108,6 +109,7 @@ namespace jogo_forca {
             Console.WriteLine("0) Voltar");
 
             UI.Linha();
+            Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("Escolha uma categoria: ");
 
             string opcao = Console.ReadLine();
@@ -159,18 +161,64 @@ namespace jogo_forca {
             Ranking.RegistrarResultado(nomeJogador, venceu);
         }
 
-        static void ExibirAlunos() {
+        static void ExibirDetalhes() {
             Console.Clear();
 
-            UI.Titulo("Integrantes do grupo:");
+            UI.Titulo("SOBRE O JOGO");
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("  Desenvolvido para a disciplina de Prática Profissional");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("  Linguagem: C#  |  Plataforma: .NET  |  Interface: Console");
+            Console.ResetColor();
+
+            Console.WriteLine();
             UI.Linha();
 
-            Console.WriteLine("Cesar Augusto Silva - 2026109330");
-            Console.WriteLine("Maria Carolina Pereira - 2022202695");
-            Console.WriteLine("Sara Hadassa Bruzamolin Carvalho - 2022101542");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("  FUNCIONALIDADES");
+            Console.ResetColor();
+            Console.WriteLine();
+
+            string[] funcionalidades = {
+                "Modo Multiplayer — um jogador digita a palavra para o outro adivinhar",
+                "Modo Single Player — palavra sorteada aleatoriamente por categoria",
+                "Categorias: Frutas, Objetos, Cores, Animais e Países",
+                "Ranking com histórico de vitórias e derrotas",
+                "Forca animada com 6 tentativas"
+            };
+
+            foreach (var item in funcionalidades) {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write("  • ");
+                Console.ResetColor();
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine();
+            UI.Linha();
+
+            UI.Titulo("INTEGRANTES DO GRUPO");
+
+            string[] nomes = {
+                "Cesar Augusto Silva",
+                "Maria Carolina Pereira",
+                "Sara Hadassa Bruzamolin Carvalho"
+            };
+
+            string[] RAs = {
+                "2026109330",
+                "2022202695",
+                "2022101542"
+            };
+
+            UI.ExibirIntegrantes(nomes, RAs);
 
             UI.Linha();
-            Console.WriteLine("Pressione qualquer tecla para voltar...");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("Pressione qualquer tecla para voltar ao menu...");
+            Console.ResetColor();
             Console.ReadKey();
         }
     }

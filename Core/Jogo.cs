@@ -25,7 +25,7 @@ namespace jogo_forca {
                 UI.DesenharForca(numeroVidas, letrasUsadas);
 
                 UI.Linha();
-
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write("PALAVRA: ");
 
                 // Exibe as letras descobertas e "_" no lugar das ainda ocultas
@@ -47,6 +47,7 @@ namespace jogo_forca {
                 string letraEscolhida;
 
                 while (true) {
+                    Console.ResetColor();
                     Console.Write("Digite uma letra: ");
                     string entrada = Console.ReadLine().ToUpper();
 
@@ -145,6 +146,7 @@ namespace jogo_forca {
             } while (jogoEmAndamento);
 
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine("Pressione qualquer tecla para voltar ao menu...");
             Console.ReadKey();
 

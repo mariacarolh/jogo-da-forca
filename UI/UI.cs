@@ -5,78 +5,63 @@ using System.Threading;
 namespace jogo_forca {
     public static class UI {
         public static void DesenharForca(int vidas, List<string> letrasUsadas) {
+            Console.WriteLine();
+
             string coracoes = GerarCoracoes(vidas);
 
-            Console.WriteLine("  _______      Vidas: " + coracoes);
-            Console.Write(" |/      |     Letras usadas: ");
+            // Cor da forca muda conforme as vidas
+            ConsoleColor corForca = vidas > 3 ? ConsoleColor.White : vidas > 1 ? ConsoleColor.Yellow : ConsoleColor.Red;
+
+            string cabeca  = vidas <= 5 ? "(_)" : "   ";
+            string tronco1 = vidas == 4 ? " | " : vidas == 3 ? "\\| " : vidas <= 2 ? "\\|/" : "   ";
+            string tronco2 = vidas <= 2 ? " | " : "   ";
+            string pernas  = vidas == 1 ? "/  " : vidas == 0 ? "/ \\" : "   ";
+
+            Console.ForegroundColor = corForca;
+            Console.WriteLine("   _______");
+            Console.WriteLine("  |/      |");
+            Console.WriteLine("  |      " + cabeca);
+            Console.WriteLine("  |      " + tronco1);
+            Console.WriteLine("  |      " + tronco2);
+            Console.WriteLine("  |      " + pernas);
+            Console.WriteLine("  |");
+            Console.WriteLine("__|___");
+            Console.ResetColor();
+
+            Console.WriteLine();
+
+            // Vidas com cor dinâmica
+            Console.Write("  Vidas : ");
+            Console.ForegroundColor = vidas > 3 ? ConsoleColor.Green : vidas > 1 ? ConsoleColor.Yellow : ConsoleColor.Red;
+            Console.WriteLine(coracoes);
+            Console.ResetColor();
+
+            // Letras usadas
+            Console.Write("  Letras: ");
             GerarHistoricoLetras(letrasUsadas);
-
-            if (vidas <= 5) {
-                Console.WriteLine(" |      (_)");
-            } else  {
-                Console.WriteLine(" |");
-            }
-
-            if (vidas == 4) { 
-                Console.WriteLine(" |       |");  
-            }
-
-            else if (vidas == 3) {
-                Console.WriteLine(" |      \\|");
-            }
-
-            else if (vidas <= 2) {
-                Console.WriteLine(" |      \\|/");
-            }
-
-            else {
-                Console.WriteLine(" |");
-            }
-
-
-            if (vidas <= 2) {
-                Console.WriteLine(" |       |");
-            } else {
-                Console.WriteLine(" |");
-            }
-
-
-            if (vidas == 1) {
-                Console.WriteLine(" |      / ");
-            }
-
-            else if (vidas == 0)
-            {
-                Console.WriteLine(" |      / \\");
-            }
-
-            else
-            {
-                Console.WriteLine(" |");
-            }
-
-
-            Console.WriteLine(" |");
-            Console.WriteLine("_|___");
         }
 
         public static string GerarCoracoes(int vidas) {
-            string coracoes = "";
-            for (int i = 0; i < vidas; i++) {
-                coracoes += "♥ ";
-            }
-            return coracoes;
+            string cheios  = new string('♥', vidas).Replace("♥", "♥ ");
+            string vazios  = new string('♡', 6 - vidas).Replace("♡", "♡ ");
+            return cheios + vazios;
         }
 
         public static void GerarHistoricoLetras(List<string> letrasUsadas) {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-
-            foreach (var letra in letrasUsadas) {
-                Console.Write(letra + " ");
+            if (letrasUsadas.Count == 0) {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("nenhuma ainda");
+                Console.ResetColor();
+                return;
             }
 
-            Console.ResetColor();
-            Console.WriteLine(); 
+            foreach (var letra in letrasUsadas) {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"[{letra}]");
+                Console.ResetColor();
+                Console.Write(" ");
+            }
+            Console.WriteLine();
         }
 
         public static void PiscarMensagem(string mensagem, ConsoleColor cor, int piscadas) {
@@ -105,8 +90,14 @@ namespace jogo_forca {
         }
 
         public static void Titulo(string texto) {
+            int largura = 55;
+            int padding = Math.Max(0, (largura - texto.Length) / 2);
+
+            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(texto);
+            Console.WriteLine(new string('═', largura));
+            Console.WriteLine(new string(' ', padding) + texto);
+            Console.WriteLine(new string('═', largura));
             Console.ResetColor();
         }
 
@@ -114,6 +105,27 @@ namespace jogo_forca {
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine(new string('─', 55));
             Console.ResetColor();
+        }
+
+        public static void ExibirIntegrantes(string[] nomes, string[] RAs) {
+            Console.WriteLine();
+
+            for (int i = 0; i < nomes.Length; i++) {
+                Console.Write("  ");
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(nomes[i]);
+
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write("  —  RA: ");
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(RAs[i]);
+
+                Console.ResetColor();
+            }
+
+            Console.WriteLine();
         }
     }
 }
