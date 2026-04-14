@@ -47,9 +47,24 @@ namespace jogo_forca {
                 string letraEscolhida;
 
                 while (true) {
-                    Console.ResetColor();
+                    //Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write("Use o comando '/sair' para desistir: ");
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.Write("Digite uma letra: ");
-                    string entrada = Console.ReadLine().ToUpper();
+                    string entrada = Console.ReadLine();
+
+                    if (entrada.Trim().ToLower() == "/sair") {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine("\nVocê desistiu da partida.");
+                        Console.WriteLine("A palavra era: " + Palavra);
+                        Console.ResetColor();
+                        Console.ReadKey();
+                        return false;
+                    }
+
+                    entrada = entrada.ToUpper();
 
                     if (entrada.Length == 1 && Char.IsLetter(entrada[0])) {
                         letraEscolhida = entrada;
