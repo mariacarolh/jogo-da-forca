@@ -47,7 +47,6 @@ namespace jogo_forca {
                 string letraEscolhida;
 
                 while (true) {
-                    //Console.ResetColor();
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("Use o comando '/sair' para desistir: ");
                     Console.WriteLine();

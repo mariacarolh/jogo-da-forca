@@ -132,7 +132,7 @@ namespace jogo_forca {
             string entrada = "";
 
             while (true) {
-                // Lê a tecla sem exibir nada na tela com intercepttrue
+                // Lê a tecla sem exibir nada na tela com intercept true
                 ConsoleKeyInfo tecla = Console.ReadKey(intercept: true);
 
                 // Enter encerra a leitura

@@ -101,12 +101,13 @@ namespace jogo_forca {
             UI.Titulo("Modo Single Player");
             UI.Linha();
 
-            Console.WriteLine("1) Frutas");
-            Console.WriteLine("2) Objetos");
-            Console.WriteLine("3) Cores");
-            Console.WriteLine("4) Animais");
-            Console.WriteLine("5) Paises");
-            Console.WriteLine("0) Voltar");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("[1] Frutas");
+            Console.WriteLine("[2] Objetos");
+            Console.WriteLine("[3] Cores");
+            Console.WriteLine("[4] Animais");
+            Console.WriteLine("[5] Paises");
+            Console.WriteLine("[0] Voltar");
 
             UI.Linha();
             Console.ForegroundColor = ConsoleColor.DarkGray;
